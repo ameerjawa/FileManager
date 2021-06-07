@@ -50,7 +50,7 @@ class Actions(object):
                             with open(file2path, "a") as f1:
                                 for line in f:
                                     f1.write(line)
-                                showresult(text, file2path)
+                                Actions.showresult(text, file2path)
                     else:
                         print("the first file is Empty!!")
                 else:
@@ -93,15 +93,15 @@ class Actions(object):
     def switch_data_in_files(text, file1path, file2path):
         try:
             if os.access(file1path, os.W_OK) and os.access(file1path, os.R_OK) or os.access(file2path,os.W_OK) and os.access(file2path, os.R_OK):
-                lines = []
+
                 with open(file1path, "r") as f1:
-                    for line in f1:
-                        lines.append(line.__str__())
+                    lines=[line.__str__() for line in f1] ## list comprehension expression
                 with open(file2path, "r") as f:
                     with open(file1path, "w") as f1:
                         for line in f:
                             f1.write(line)
                 with open(file2path, "w") as f:
+
                     for line in lines:
                         f.write(line)
                 text.delete("1.0", END)
